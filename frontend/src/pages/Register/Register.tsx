@@ -27,14 +27,14 @@ const Register = () => {
 
     const handleRegister = async () => {
         setIsLoading(true);
-        const userDetails = {
+        const pharmacyDetails = {
             name,
             email,
             password,
-            phone,
+            phone_no: phone,
         };
         client
-            .post('/auth/register', userDetails)
+            .post('/auth/register', pharmacyDetails)
             .then((res) => {
                 console.log(res.data);
                 setIsLoading(false);

@@ -13,9 +13,9 @@ export const addMedicine = async (
     res: express.Response
 ) => {
     try {
-        const { name, manufacturer, dosage_form, category } = req.body;
+        const { name, manufacturer, dosage_form } = req.body;
 
-        if (!name && !manufacturer && !dosage_form && !category)
+        if (!name && !manufacturer && !dosage_form)
             return res
                 .status(400)
                 .json({ message: 'Please provide required details!' })
@@ -25,7 +25,6 @@ export const addMedicine = async (
             name,
             manufacturer,
             dosage_form,
-            category,
         };
 
         const addedMedicine = await createMedicine(newMedicine);

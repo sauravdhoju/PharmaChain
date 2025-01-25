@@ -14,10 +14,11 @@ import Icon from '../../components/Icon/Icon';
 import CustomTextInput from '../../components/CustomTextInput/CustomTextInput';
 import FormBorder from '../../components/FormBorder/FormBorder';
 import './Login.scss';
+import { usePharmacyContext } from '../../contexts/PharmacyContext/PharmacyContext';
 
 const Login = () => {
     const { client } = useBackendAPIContext();
-    // const { fetchUser } = useUserContext();
+    const { fetchPharmacy } = usePharmacyContext();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -33,7 +34,7 @@ const Login = () => {
             .post('/auth/login', userDetails)
             .then((res) => {
                 console.log(res.data);
-                // fetchUser();
+                fetchPharmacy();
                 setIsLoading(false);
             })
             .catch((err) => {
