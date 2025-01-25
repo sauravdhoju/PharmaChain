@@ -1,0 +1,48 @@
+.pharmacy-dashboard {
+    .chart-container {
+      height: 250px;
+      margin-top: 1rem;
+    }
+  
+    .collaboration-item {
+      padding: 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      transition: box-shadow 0.2s;
+  
+      &:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+    }
+  
+    .chakra-card {
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+  
+      .chakra-card__header {
+        padding-bottom: 0;
+        font-weight: 600;
+        font-size: 1.125rem;
+      }
+  
+      .chakra-card__body {
+        padding-top: 0.5rem;
+      }
+    }
+  
+    .chakra-alert {
+      border-radius: 8px;
+      padding: 1rem;
+    }
+  
+    button {
+      transition: background-color 0.2s;
+  
+      &:hover {
+        background-color: #2b6cb0;
+      }
+    }
+  }
+  
