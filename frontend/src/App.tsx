@@ -1,19 +1,20 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './pages/Login/Login';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { Box } from '@chakra-ui/react';
 
-function App() {
-  return (
-    <Router>
-      <div>
-        <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </div>
-    </Router>
-  );
-}
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import './App.scss';
+
+const App = () => {
+
+    return (
+        <Box className='app'>
+                <Routes>
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/register' element={<Register />} />
+                </Routes>
+        </Box>
+    );
+};
 
 export default App;
