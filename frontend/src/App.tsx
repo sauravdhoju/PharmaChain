@@ -5,6 +5,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import PharmaInvent from './pages/PharmaInvent/PharmaInvent';
 import AdminDash from './pages/AdminDash/AdminDash';
+import AdminLogin from './pages/AdminLogin/AdminLogin';
 import './App.scss';
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
         <Box className='app'>
                 <Routes>
                     <Route path='/login' element={<Login />} />
+                    <Route path='/admin_login' element={<AdminLogin />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/pharma_invent' element={<PharmaInvent />} />
                     <Route path='/admin_dash' element={<AdminDash />} />
