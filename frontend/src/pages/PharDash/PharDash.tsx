@@ -24,7 +24,7 @@ import {
 } from '@chakra-ui/react';
 import { SearchIcon, CalendarIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
-import PeerOpportunitiesModal from './PeerOpportunities';
+import PeerOpportunitiesModal from './PeerOpportunitiesBuyer';
 import { Medicine } from '../AdminDash/AdminDash';
 import { useBackendAPIContext } from '../../contexts/BackendAPIContext/BackendAPIContext';
 import MedicineRowComponent from '../../components/MedicineRowComponent/MedicineRowComponent';

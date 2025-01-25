@@ -15,6 +15,7 @@ import {
   Td,
   Text,
 } from '@chakra-ui/react';
+import Icon from '../../components/Icon/Icon';
 
 interface PeerOpportunity {
   pharmacy: string;
@@ -49,6 +50,10 @@ const PeerOpportunitiesModal: React.FC<PeerOpportunitiesModalProps> = ({
     }
   ];
 
+  const handleCartClick = () => {
+    alert("Added to cart!");
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
@@ -58,7 +63,7 @@ const PeerOpportunitiesModal: React.FC<PeerOpportunitiesModalProps> = ({
             {medicineName} - Peer Market Opportunities
           </Text>
           <Text fontSize="md" mt={2} fontWeight="normal">
-            Potential Buyers:
+            Potential Sellers:
           </Text>
         </ModalHeader>
 
@@ -68,8 +73,9 @@ const PeerOpportunitiesModal: React.FC<PeerOpportunitiesModalProps> = ({
               <Tr>
                 <Th>Pharmacy</Th>
                 <Th>Bulk Purchase</Th>
-                <Th>Distance</Th>
+                {/* <Th>Distance</Th> */}
                 <Th>Price Range</Th>
+                <Th>Action</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -77,8 +83,13 @@ const PeerOpportunitiesModal: React.FC<PeerOpportunitiesModalProps> = ({
                 <Tr key={index}>
                   <Td fontWeight="medium">{opp.pharmacy}</Td>
                   <Td>{opp.bulkPurchase} units</Td>
-                  <Td>{opp.distance}</Td>
+                  {/* <Td>{opp.distance}</Td> */}
                   <Td>{opp.priceRange}</Td>
+                  <Td><Button
+                  onClick={handleCartClick}>
+                    <Icon name="bx-cart" />
+                    </Button>
+                  </Td>
                 </Tr>
               ))}
             </Tbody>
@@ -88,15 +99,6 @@ const PeerOpportunitiesModal: React.FC<PeerOpportunitiesModalProps> = ({
         <ModalFooter borderTopWidth="1px" gap={3}>
           <Button variant="ghost" onClick={onClose}>
             Close
-          </Button>
-          <Button 
-            colorScheme="blue"
-            bgGradient="linear(to-r, blue.400, blue.500)"
-            _hover={{
-              bgGradient: "linear(to-r, blue.500, blue.600)",
-            }}
-          >
-            Contact Peers
           </Button>
         </ModalFooter>
       </ModalContent>
