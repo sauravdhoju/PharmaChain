@@ -15,7 +15,7 @@ type CustomTextInputProps = {
     className?: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     value: string;
-    type: 'email' | 'text' | 'password' | 'name';
+    type: 'email' | 'password' | 'name'  |  'phone';
     required?: boolean;
     placeholder?: string;
 };
@@ -34,10 +34,10 @@ const CustomTextInput = ({
             return <Icon name='bxl-gmail' />;
         } else if (type === 'password') {
             return <Icon name='bxs-lock-open-alt' />;
-        } else if (type === 'text') {
-            return <Icon name='bxs-user' />;
         } else if (type === 'name') {
             return <Icon name='bxs-user-rectangle' />;
+        } else if (type === 'phone') {
+            return <Icon name='bxs-phone' />;
         } else {
             return null;
         }
