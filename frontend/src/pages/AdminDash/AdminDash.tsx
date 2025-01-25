@@ -22,6 +22,8 @@ import { useBackendAPIContext } from '../../contexts/BackendAPIContext/BackendAP
 import AddMedicineForm from './AddMedicineForm';
 import MedicineList from './MedicineList';
 import PharmacyList from './PharmacyList';
+import AddPharmacyForm from './AddPharmacyForm';
+
 
 export interface Medicine {
     id: number;
@@ -153,6 +155,12 @@ const AdminDash: React.FC = () => {
                         <ModalBody>
                             {activeTab === 'medicines' ? (
                                 <AddMedicineForm />
+                            ) : null}
+                        </ModalBody>
+
+                        <ModalBody>
+                            {activeTab === 'pharmacies' ? (
+                                <AddPharmacyForm />
                             ) : null}
                         </ModalBody>
                         <ModalFooter>
