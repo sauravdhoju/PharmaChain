@@ -152,7 +152,9 @@ const AdminDash: React.FC = () => {
                         </ModalHeader>
                         <ModalBody>
                             {activeTab === 'medicines' ? (
-                                <AddMedicineForm />
+                                <AddMedicineForm
+                                    fetchMedicines={fetchMedicines}
+                                />
                             ) : null}
                         </ModalBody>
                         <ModalFooter>
