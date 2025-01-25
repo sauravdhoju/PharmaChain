@@ -51,7 +51,7 @@ class MedicineSalesPredictor:
         try:
             ensure_data_dir()
             self.df = pd.read_csv(DATASET_PATH)
-            self.df['Manufactured_Date'] = pd.to_datetime(self.df['Manufactured_Date'])
+            # self.df['Manufactured_Date'] = pd.to_datetime(self.df['Manufactured_Date'])
             self.df['Expiry_Date'] = pd.to_datetime(self.df['Expiry_Date'])
             return True
         except FileNotFoundError as e:
