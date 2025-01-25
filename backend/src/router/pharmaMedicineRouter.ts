@@ -18,9 +18,5 @@ export default (router: express.Router) => {
         isAuthenticated,
         updateStock
     );
-    router.get(
-        '/api/pharma/medicines/:pharmaId',
-        isAuthenticated,
-        getAllStocks
-    );
+    router.get('/api/pharma/medicines/', isAuthenticated, getAllStocks);
 };
