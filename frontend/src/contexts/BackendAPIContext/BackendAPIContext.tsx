@@ -13,7 +13,7 @@ const BackendAPIProvider: React.FC<React.PropsWithChildren<{}>> = ({
     children,
 }) => {
     const client = axios.create({
-        baseURL: 'http://localhost:6123/api',
+        baseURL: 'http://localhost:6969/api',
         withCredentials: true,
     });
     return (
