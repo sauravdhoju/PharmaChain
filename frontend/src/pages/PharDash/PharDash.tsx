@@ -68,9 +68,7 @@ const MedicineInventory: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>(''); // Search input state
     const [sortBy, setSortBy] = useState<SortBy | null>(null); // Sorting state
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // Modal state
-    const [selectedMedicine, setSelectedMedicine] = useState<
-        string | undefined
-    >(''); // Selected medicine for modal
+    const [selectedMedicine, setSelectedMedicine] = useState<string>(''); // Selected medicine for modal
 
     const navigate = useNavigate();
 
