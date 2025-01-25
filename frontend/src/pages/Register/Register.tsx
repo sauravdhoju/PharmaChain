@@ -6,7 +6,6 @@ import {
     Text,
     Link as ChakraLink,
     Button,
-    Image,
 } from '@chakra-ui/react';
 
 import { useBackendAPIContext } from '../../contexts/BackendAPIContext/BackendAPIContext';
@@ -20,21 +19,19 @@ import './Register.scss';
 const Register = () => {
     const navigate = useNavigate();
     const { client } = useBackendAPIContext();
-
-    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
     const handleRegister = async () => {
         setIsLoading(true);
-        setIsLoading(true);
         const userDetails = {
             name,
-            username,
             email,
             password,
+            phone,
         };
         client
             .post('/auth/register', userDetails)
@@ -73,17 +70,6 @@ const Register = () => {
                         className='custom-input custom-input-username'
                     />
                     <CustomTextInput
-                        label='Username'
-                        type='text'
-                        value={username}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            setUsername(e.target.value);
-                        }}
-                        placeholder='Username'
-                        className='custom-input custom-input-username'
-                        required
-                    />
-                    <CustomTextInput
                         label='Email'
                         type='email'
                         value={email}
@@ -103,6 +89,17 @@ const Register = () => {
                         }}
                         className='custom-input custom-input-password'
                         placeholder='********'
+                        required
+                    />
+                    <CustomTextInput
+                        label='Phone Number'
+                        type='phone'
+                        value={phone}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                            setPhone(e.target.value);
+                        }}
+                        placeholder='9800000000'
+                        className='custom-input custom-input-phone'
                         required
                     />
                     <ChakraLink
@@ -128,13 +125,6 @@ const Register = () => {
                     </Button>
                 </form>
                 <FormBorder />
-                {/* <Text className='or-continue-with'>Or continue with</Text>
-                <Button className='google-sign-in-btn'>
-                    <Text as={'span'} className='google-logo-container'>
-                        <Image src='/googlelogo.png' className='google-logo' />
-                    </Text>
-                    Sign in with Google
-                </Button> */}
                 <ChakraLink
                     as={ReactRouterLink}
                     to={'/login'}
