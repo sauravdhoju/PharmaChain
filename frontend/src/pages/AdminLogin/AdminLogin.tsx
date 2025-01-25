@@ -45,9 +45,11 @@ const AdminLogin: React.FC = () => {
                     duration: 3000,
                 });
 
+                setIsLoading(false);
                 navigate('/admin_dash');
             }
         } catch (error) {
+            setIsLoading(false);
             console.error(error);
         }
     };
