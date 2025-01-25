@@ -9,7 +9,6 @@ import {
   FormLabel,
   Heading,
   Input,
-  Select,
   Table,
   Thead,
   Tbody,
@@ -35,7 +34,7 @@ interface Medicine {
     id: number;
     name: string;
     manufacturer: string;
-    dosageForm: string;
+    dosageForm: number;
   }
   
   interface Pharmacy {
@@ -45,46 +44,27 @@ interface Medicine {
     contact: string;
   }
 
-const AdminDashboard: React.FC = () => {
+const AdminDash: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'medicines' | 'pharmacies'>('medicines');
   const [medicines, setMedicines] = useState<Medicine[]>([
     {
       id: 1,
       name: 'Amoxicillin',
       manufacturer: 'PharmaCorp',
-      dosageForm: 'Tablet',
-      category: 'Antibiotics'
+      dosageForm: 500,
     }
   ]);
   const [pharmacies, setPharmacies] = useState<Pharmacy[]>([
     {
       id: 1,
-      name: 'City Pharmacy',
-      address: '123 Main St',
-      contact: '555-0123'
+      name: 'Bhaktapur Uupachar Kendra',
+      address: 'Bhaktapur',
+      contact: '9808827451'
     }
   ]);
 
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const dosageForms = [
-    'Tablet',
-    'Capsule',
-    'Syrup',
-    'Injection',
-    'Cream',
-    'Ointment'
-  ];
-
-  const categories = [
-    'Antibiotics',
-    'Pain Relief',
-    'Antiviral',
-    'Cardiovascular',
-    'Respiratory',
-    'Diabetic Care'
-  ];
 
   const AddMedicineForm: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
@@ -95,6 +75,7 @@ const AdminDashboard: React.FC = () => {
         duration: 3000,
       });
     };
+
 
     return (
       <Box className="dashboard__form" p={6}>
@@ -190,6 +171,49 @@ const AdminDashboard: React.FC = () => {
     </Box>
   );
 
+
+  const PharmacyList: React.FC = () => (
+    <Box overflowX="auto">
+      <Table variant="simple">
+        <Thead>
+          <Tr>
+            <Th>Name</Th>
+            <Th>Address</Th>
+            <Th>Contact</Th>
+            <Th>Actions</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {pharmacies.map((pharmacy) => (
+            <Tr key={pharmacy.id}>
+              <Td>{pharmacy.name}</Td>
+              <Td>{pharmacy.address}</Td>
+              <Td>{pharmacy.contact}</Td>
+              <Td>
+                <Flex gap={2}>
+                  <IconButton
+                    aria-label="Edit"
+                    icon={<EditIcon />}
+                    size="sm"
+                    colorScheme="blue"
+                    variant="ghost"
+                  />
+                  <IconButton
+                    aria-label="Delete"
+                    icon={<DeleteIcon />}
+                    size="sm"
+                    colorScheme="red"
+                    variant="ghost"
+                  />
+                </Flex>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </Box>
+  );
+
   return (
     <Box minH="100vh" bg="gray.50">
       <Box className="dashboard__header">
@@ -239,13 +263,17 @@ const AdminDashboard: React.FC = () => {
         </Box>
 
         {activeTab === 'medicines' ? (
-          <>
+            <>
             <AddMedicineForm />
             <Box mt={6}>
-              <MedicineList />
+                <MedicineList />
             </Box>
-          </>
-        ) : null}
+            </>
+        ) : (
+            <Box mt={6}>
+            <PharmacyList />
+            </Box>
+        )}
 
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
@@ -268,4 +296,4 @@ const AdminDashboard: React.FC = () => {
   );
 };
 
-export default AdminDashboard;
+export default AdminDash;
