@@ -1,5 +1,5 @@
 // AdminDashboard.tsx
-import React, { useEffect, useState } from 'react';
+import React, { act, useEffect, useState } from 'react';
 import {
     Box,
     Button,
@@ -22,7 +22,7 @@ import { useBackendAPIContext } from '../../contexts/BackendAPIContext/BackendAP
 import AddMedicineForm from './AddMedicineForm';
 import MedicineList from './MedicineList';
 import PharmacyList from './PharmacyList';
-import AddPharmacyForm from './AddPharmacyForm';
+// import AddPharmacyForm from './AddPharmacyForm';
 
 
 export interface Medicine {
@@ -105,14 +105,13 @@ const AdminDash: React.FC = () => {
                             ? 'Medicines Management'
                             : 'Pharmacies Management'}
                     </Heading>
-                    <Button
+                    {activeTab === 'medicines' && <Button
                         leftIcon={<AddIcon />}
                         colorScheme='blue'
                         onClick={onOpen}
                     >
-                        Add{' '}
-                        {activeTab === 'medicines' ? 'Medicine' : 'Pharmacy'}
-                    </Button>
+                        Add Medicine
+                    </Button>}
                 </Flex>
 
                 <Box mb={6} position='relative'>
@@ -159,12 +158,12 @@ const AdminDash: React.FC = () => {
                                 />
                             ) : null}
                         </ModalBody>
-
+{/* 
                         <ModalBody>
                             {activeTab === 'pharmacies' ? (
                                 <AddPharmacyForm />
                             ) : null}
-                        </ModalBody>
+                        </ModalBody> */}
                         <ModalFooter>
                             <Button variant='ghost' mr={3} onClick={onClose}>
                                 Cancel

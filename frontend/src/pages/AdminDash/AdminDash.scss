@@ -3,8 +3,10 @@ $primary-color: #4299E1;
 $secondary-color: #2B6CB0;
 $background-color: #F7FAFC;
 $border-color: #E2E8F0;
+// @use '../../variables.module';
 
 .dashboard {
+    // font-family: variables.$primary-font;
   &__header {
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.9);
