@@ -53,7 +53,7 @@ const Register = () => {
     return (
         <Box className='register-page'>
             {/* <NavBar /> */}
-            <Box className='register-stuff-container'>
+            <Box className='register-stuff-container' maxW='500px' margin={'0 auto'}>
                 <Heading className='greeting'>Create Account</Heading>
                 <Text className='register-info-text'>
                     Create your new account!

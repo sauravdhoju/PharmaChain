@@ -1,13 +1,5 @@
-// import { useParams } from 'react-router-dom';
-// const PeerOpportunities = () => {
-//     const { medicineId } = useParams();
-//     return <div>{medicineId}</div>;
-// };
-
-// export default PeerOpportunities;
-
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { FiShoppingCart } from "react-icons/fi"; 
 import {
   Modal,
   ModalOverlay,
@@ -23,6 +15,9 @@ import {
   Th,
   Td,
   Text,
+  Spinner,
+  Center,
+  IconButton
 } from '@chakra-ui/react';
 
 interface PeerOpportunity {
@@ -36,27 +31,35 @@ interface PeerOpportunitiesModalProps {
   isOpen: boolean;
   onClose: () => void;
   medicineName: string;
+  fetchOpportunities: (medicineName: string) => Promise<PeerOpportunity[]>;
 }
 
 const PeerOpportunitiesModal: React.FC<PeerOpportunitiesModalProps> = ({
   isOpen,
   onClose,
   medicineName,
+  fetchOpportunities,
 }) => {
-  const opportunities: PeerOpportunity[] = [
-    {
-      pharmacy: "Health Plus Pharmacy",
-      bulkPurchase: 50,
-      distance: "5 km",
-      priceRange: "$10-$15 per pack"
-    },
-    {
-      pharmacy: "Wellness Drugstore",
-      bulkPurchase: 30,
-      distance: "10 km",
-      priceRange: "$9-$14 per pack"
+  const [opportunities, setOpportunities] = useState<PeerOpportunity[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      setLoading(true);
+      setError(null);
+
+      fetchOpportunities(medicineName)
+        .then((data) => {
+          setOpportunities(data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          setError("Failed to fetch opportunities. Please try again.");
+          setLoading(false);
+        });
     }
-  ];
+  }, [isOpen, medicineName, fetchOpportunities]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
@@ -72,41 +75,67 @@ const PeerOpportunitiesModal: React.FC<PeerOpportunitiesModalProps> = ({
         </ModalHeader>
 
         <ModalBody py={6}>
-          <Table variant="simple">
-            <Thead bg="gray.50">
-              <Tr>
-                <Th>Pharmacy</Th>
-                <Th>Bulk Purchase</Th>
-                <Th>Distance</Th>
-                <Th>Price Range</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {opportunities.map((opp, index) => (
+          {loading ? (
+            <Center>
+              <Spinner size="lg" />
+            </Center>
+          ) : error ? (
+            <Text color="red.500" textAlign="center">
+              {error}
+            </Text>
+          ) : opportunities.length === 0 ? (
+            <Text textAlign="center" color="gray.500">
+              No opportunities available for this medicine.
+            </Text>
+          ) : (
+            <Table variant="simple">
+              <Thead bg="gray.50">
+                <Tr>
+                  <Th>Pharmacy</Th>
+                  <Th>Bulk Purchase</Th>
+                  <Th>Distance</Th>
+                  <Th>Price Range</Th>
+                  <Th>Action</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {opportunities.map((opp, index) => (
                 <Tr key={index}>
                   <Td fontWeight="medium">{opp.pharmacy}</Td>
                   <Td>{opp.bulkPurchase} units</Td>
                   <Td>{opp.distance}</Td>
                   <Td>{opp.priceRange}</Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
+                  <Td>
+                    <IconButton
+                      aria-label="Shop"
+                      icon={<FiShoppingCart />} // Shop icon from react-icons
+                      variant="outline"
+                      colorScheme="teal"
+                      size="sm"
+                    />
+                  </Td>
+      </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          )}
         </ModalBody>
 
         <ModalFooter borderTopWidth="1px" gap={3}>
           <Button variant="ghost" onClick={onClose}>
             Close
           </Button>
-          <Button 
-            colorScheme="blue"
-            bgGradient="linear(to-r, blue.400, blue.500)"
-            _hover={{
-              bgGradient: "linear(to-r, blue.500, blue.600)",
-            }}
-          >
-            Contact Peers
-          </Button>
+          {opportunities.length > 0 && (
+            <Button 
+              colorScheme="blue"
+              bgGradient="linear(to-r, blue.400, blue.500)"
+              _hover={{
+                bgGradient: "linear(to-r, blue.500, blue.600)",
+              }}
+            >
+              Contact Peers
+            </Button>
+          )}
         </ModalFooter>
       </ModalContent>
     </Modal>

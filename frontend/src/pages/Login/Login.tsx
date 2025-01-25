@@ -48,7 +48,7 @@ const Login = () => {
         handleLogin();
     };
     return (
-        <Box className='login-page'>
+        <Box className='login-page' maxW='500px' margin={'0 auto'}>
             <Box className='login-stuff-container'>
                 <Heading className='greeting'>Welcome Back</Heading>
                 <Text className='login-info-text'>Login to your account</Text>
