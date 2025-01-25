@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box, Flex, Heading } from '@chakra-ui/react';
 
 // Define the type for the component's props
 interface HeaderProps {
@@ -7,11 +8,13 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ shopName }) => {
     return (
-        <header className="bg-blue-600 text-white py-4 shadow-md">
-            <div className="container mx-auto flex justify-center">
-                <h1 className="text-2xl font-bold">{shopName}</h1>
-            </div>
-        </header>
+        <Box bg="blue.600" color="white" py={4} boxShadow="md">
+            <Flex justify="center">
+                <Heading as="h1" size="lg">
+                    {shopName}
+                </Heading>
+            </Flex>
+        </Box>
     );
 };
 
