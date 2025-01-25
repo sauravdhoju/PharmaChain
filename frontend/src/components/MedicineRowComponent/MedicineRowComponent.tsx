@@ -65,6 +65,7 @@ const MedicineRowComponent = ({
         try {
             const response = await client.get(`/medicine/${medicineId}`);
             const data = await response.data;
+            console.log(data);
 
             if (data) setMedicine(data.medicine);
         } catch (error) {
@@ -152,7 +153,7 @@ const MedicineRowComponent = ({
                             days left
                         </Badge>
                     </HStack>
-                    <Text fontSize='sm'>Recommended Period: {20} days</Text>
+                    <Text fontSize='sm'>Recommended Period: {60} days</Text>
                 </Td>
                 <Td>
                     <VStack align='start'>
@@ -161,6 +162,7 @@ const MedicineRowComponent = ({
                         <Text fontWeight='bold'>Peer Sales</Text>
                         <Text>
                             {/* Build Sales Potential: {patientSales.totalSales}{' '} */}
+                            Peer Sales: {}
                             units
                         </Text>
                         <Progress
