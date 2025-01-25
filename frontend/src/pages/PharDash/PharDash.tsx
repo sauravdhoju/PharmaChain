@@ -28,7 +28,7 @@ import { Medicine } from '../AdminDash/AdminDash';
 import { useBackendAPIContext } from '../../contexts/BackendAPIContext/BackendAPIContext';
 import MedicineRowComponent from '../../components/MedicineRowComponent/MedicineRowComponent';
 
-interface MedicineData {
+interface PharmaMedicineType {
     // name: string;
     // patientSales: {
     //     totalSales: number;
@@ -44,11 +44,11 @@ interface MedicineData {
     // quantity: {
     //     stock: number;
     // };
-    name: string;
-    quantity: number;
-    daysLeft: number;
-    totalSales: number;
-
+    _id: string;
+    pharmacy_id: string;
+    medicine_id: string;
+    expiry_date: Date;
+    units: number;
 }
 
 enum ViewMode {
@@ -74,13 +74,13 @@ const MedicineInventory: React.FC = () => {
     const handlePeerOpportunitiesClick = (medicineName: string) => {
         setSelectedMedicine(medicineName);
         setIsModalOpen(true);
-      };
-    
-      const closeModal = () => {
+    };
+
+    const closeModal = () => {
         setIsModalOpen(false);
-        setSelectedMedicine("");
-      };
-    
+        setSelectedMedicine('');
+    };
+
     // const medicines: MedicineData[] = [
     //     {
     //         name: 'Aspirin',
@@ -117,14 +117,16 @@ const MedicineInventory: React.FC = () => {
     //         },
     //     },
     // ];
-    const [medicines, setMedicines] = useState<Medicine[]>([]);
+    const [pharmaMedicines, setPharmaMedicines] = useState<
+        PharmaMedicineType[]
+    >([]);
 
-    const fetchMedicines = async () => {
+    const fetchPharmaMedicines = async () => {
         try {
             const response = await client.get('/pharma/medicines');
             const data = await response.data.pharmaMedicines;
             if (data) {
-                setMedicines(data);
+                setPharmaMedicines(data);
             }
         } catch (error) {
             console.error(error);
@@ -135,25 +137,25 @@ const MedicineInventory: React.FC = () => {
     //     navigate(`/peer-opportunities/${medicineName}`);
     // };
 
-    const filteredMedicines = useMemo(() => {
-        return medicines
-            .filter((medicine) =>
-                medicine.name.toLowerCase().includes(searchQuery.toLowerCase())
-            )
-            .sort((a, b) => {
-                if (sortBy === SortBy.Sales) {
-                    return (
-                        b.patientSales.totalSales - a.patientSales.totalSales
-                    );
-                } else if (sortBy === SortBy.Expiry) {
-                    return a.expiry.daysLeft - b.expiry.daysLeft;
-                }
-                return 0;
-            });
-    }, [medicines, searchQuery, sortBy]);
+    // const filteredMedicines = useMemo(() => {
+    //     return medicines
+    //         .filter((medicine) =>
+    //             medicine.name.toLowerCase().includes(searchQuery.toLowerCase())
+    //         )
+    //         .sort((a, b) => {
+    //             if (sortBy === SortBy.Sales) {
+    //                 return (
+    //                     b.patientSales.totalSales - a.patientSales.totalSales
+    //                 );
+    //             } else if (sortBy === SortBy.Expiry) {
+    //                 return a.expiry.daysLeft - b.expiry.daysLeft;
+    //             }
+    //             return 0;
+    //         });
+    // }, [medicines, searchQuery, sortBy]);
 
     useEffect(() => {
-        fetchMedicines();
+        fetchPharmaMedicines();
     }, []);
 
     return (
@@ -203,7 +205,7 @@ const MedicineInventory: React.FC = () => {
 
             {/* Alerts for Critical Medicines */}
             <Box mb={6} role='alert'>
-                {filteredMedicines.some(
+                {/* {filteredMedicines.some(
                     (medicine) => medicine.expiry.daysLeft <= 0
                 ) && (
                     <HStack
@@ -219,11 +221,11 @@ const MedicineInventory: React.FC = () => {
                             action required!
                         </Text>
                     </HStack>
-                )}
+                )} */}
             </Box>
 
             {/* Medicine List */}
-            {filteredMedicines.length === 0 ? (
+            {pharmaMedicines.length === 0 ? (
                 <Box textAlign='center' py={6}>
                     <Text>No medicines found matching your search.</Text>
                 </Box>
@@ -341,7 +343,7 @@ const MedicineInventory: React.FC = () => {
                             ))}
                         </Tbody> */}
 
-                    {/* <Tbody>
+                        {/* <Tbody>
                         {filteredMedicines.map((medicine) => (
                             <MedicineRowComponent
                                 key={medicine.name}
@@ -351,18 +353,21 @@ const MedicineInventory: React.FC = () => {
                         ))}
                     </Tbody> */}
 
-            <Tbody>
-                {filteredMedicines.map((medicine) => (
-                    <MedicineRowComponent
-                        key={medicine.name}
-                        name={medicine.name}
-                        quantity={medicine.quantity.stock}
-                        daysLeft={medicine.expiry_date.daysLeft}
-                        totalSales={medicine.patientSales.totalSales}
-                        onPeerOpportunitiesClick={handlePeerOpportunitiesClick}
-                    />
-                ))}
-            </Tbody>
+                        <Tbody>
+                            {pharmaMedicines.map((medicine) => (
+                                <MedicineRowComponent
+                                    key={medicine._id}
+                                    pharmaMedicineId={medicine._id}
+                                    medicineId={medicine.medicine_id}
+                                    pharmacyId={medicine.pharmacy_id}
+                                    expiryDate={medicine.expiry_date}
+                                    units={medicine.units}
+                                    onPeerOpportunitiesClick={
+                                        handlePeerOpportunitiesClick
+                                    }
+                                />
+                            ))}
+                        </Tbody>
                     </Table>
                 </Box>
             ) : (
@@ -425,7 +430,6 @@ const MedicineInventory: React.FC = () => {
                     ))}
                 </SimpleGrid>
             )}
-
 
             {/* Peer Opportunities Modal */}
             <PeerOpportunitiesModal

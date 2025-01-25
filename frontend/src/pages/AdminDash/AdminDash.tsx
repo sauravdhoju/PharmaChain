@@ -24,7 +24,6 @@ import MedicineList from './MedicineList';
 import PharmacyList from './PharmacyList';
 // import AddPharmacyForm from './AddPharmacyForm';
 
-
 export interface Medicine {
     id: number;
     name: string;
@@ -105,13 +104,15 @@ const AdminDash: React.FC = () => {
                             ? 'Medicines Management'
                             : 'Pharmacies Management'}
                     </Heading>
-                    {activeTab === 'medicines' && <Button
-                        leftIcon={<AddIcon />}
-                        colorScheme='blue'
-                        onClick={onOpen}
-                    >
-                        Add Medicine
-                    </Button>}
+                    {activeTab === 'medicines' && (
+                        <Button
+                            leftIcon={<AddIcon />}
+                            colorScheme='blue'
+                            onClick={onOpen}
+                        >
+                            Add Medicine
+                        </Button>
+                    )}
                 </Flex>
 
                 <Box mb={6} position='relative'>
@@ -158,7 +159,7 @@ const AdminDash: React.FC = () => {
                                 />
                             ) : null}
                         </ModalBody>
-{/* 
+                        {/* 
                         <ModalBody>
                             {activeTab === 'pharmacies' ? (
                                 <AddPharmacyForm />

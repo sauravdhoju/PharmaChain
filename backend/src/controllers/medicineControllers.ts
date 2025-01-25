@@ -8,6 +8,36 @@ import {
     createMedicine,
 } from '../helpers/medicineHelpers';
 
+export const getMedicine = async (
+    req: express.Request,
+    res: express.Response
+) => {
+    try {
+        const { id } = req.params;
+        if (!id)
+            return res
+                .status(400)
+                .json({ message: 'Please provide id!' })
+                .end();
+
+        const medicine = await getMedicineById(id);
+        if (!medicine)
+            return res
+                .status(404)
+                .json({ message: 'No medicine found!' })
+                .end();
+        return res
+            .status(200)
+            .json({ message: 'Medicine retrieved successfully!', medicine })
+            .end();
+    } catch (error) {
+        return res
+            .status(400)
+            .json({ message: 'Something went wrong!', error })
+            .end();
+    }
+};
+
 export const addMedicine = async (
     req: express.Request,
     res: express.Response

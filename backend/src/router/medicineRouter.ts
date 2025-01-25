@@ -5,6 +5,7 @@ import {
     updateMedicine,
     deleteMedicine,
     addMedicine,
+    getMedicine,
 } from '../controllers/medicineControllers';
 import { isAdmin } from '../middlewares';
 
@@ -14,4 +15,5 @@ export default (router: express.Router) => {
     router.get('/api/medicines', getAllMedicines);
     router.patch('/api/medicine/update/:id', isAdmin, updateMedicine);
     router.delete('/api/medicine/delete/:id', isAdmin, deleteMedicine);
+    router.get('/api/medicine/:id', getMedicine);
 };
