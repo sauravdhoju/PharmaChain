@@ -26,6 +26,7 @@ import { useNavigate } from 'react-router-dom';
 import PeerOpportunitiesModal from './PeerOpportunities';
 import { Medicine } from '../AdminDash/AdminDash';
 import { useBackendAPIContext } from '../../contexts/BackendAPIContext/BackendAPIContext';
+import MedicineRowComponent from '../../components/MedicineRowComponent/MedicineRowComponent';
 
 interface MedicineData {
     name: string;
@@ -233,7 +234,7 @@ const MedicineInventory: React.FC = () => {
                                 <Th>Peer Market</Th>
                             </Tr>
                         </Thead>
-                        <Tbody>
+                        {/* <Tbody>
                             {filteredMedicines.map((medicine) => (
                                 <Tr>
                                     <Td>
@@ -333,7 +334,17 @@ const MedicineInventory: React.FC = () => {
                                     </Td>
                                 </Tr>
                             ))}
-                        </Tbody>
+                        </Tbody> */}
+
+                    <Tbody>
+                        {filteredMedicines.map((medicine) => (
+                            <MedicineRowComponent
+                                key={medicine.name}
+                                medicine={medicine}
+                                onPeerOpportunitiesClick={handlePeerOpportunitiesClick}
+                            />
+                        ))}
+                    </Tbody>
                     </Table>
                 </Box>
             ) : (
@@ -345,9 +356,6 @@ const MedicineInventory: React.FC = () => {
                                     <Text fontWeight='bold' fontSize='lg'>
                                         {medicine.name}
                                     </Text>
-                                    {/* <Text fontSize="sm" color="gray.500">
-                    Batch: {medicine.batch}
-                  </Text> */}
                                     <Text fontWeight='bold'>Patient Sales</Text>
                                     <Text>
                                         Total Sales:{' '}
