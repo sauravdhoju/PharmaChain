@@ -6,6 +6,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import App from './App';
 
 import BackendAPIProvider from './contexts/BackendAPIContext/BackendAPIContext';
+import PharmacyProvider from './contexts/PharmacyContext/PharmacyContext';
 
 import './style.scss';
 
@@ -16,7 +17,9 @@ root.render(
         <BrowserRouter>
             <ChakraProvider>
                 <BackendAPIProvider>
+                    <PharmacyProvider>
                         <App />
+                    </PharmacyProvider>
                 </BackendAPIProvider>
             </ChakraProvider>
         </BrowserRouter>
