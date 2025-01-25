@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+
 import {
     Box,
     Input,
@@ -26,6 +27,7 @@ import { useNavigate } from 'react-router-dom';
 import PeerOpportunitiesModal from './PeerOpportunities';
 import { Medicine } from '../AdminDash/AdminDash';
 import { useBackendAPIContext } from '../../contexts/BackendAPIContext/BackendAPIContext';
+import MedicineRowComponent from '../../components/MedicineRowComponent/MedicineRowComponent';
 
 interface PharmaMedicineType {
     // name: string;
@@ -66,11 +68,13 @@ const MedicineInventory: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>(''); // Search input state
     const [sortBy, setSortBy] = useState<SortBy | null>(null); // Sorting state
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // Modal state
-    const [selectedMedicine, setSelectedMedicine] = useState<string>(''); // Selected medicine for modal
+    const [selectedMedicine, setSelectedMedicine] = useState<
+        string | undefined
+    >(''); // Selected medicine for modal
 
     const navigate = useNavigate();
 
-    const handlePeerOpportunitiesClick = (medicineName: string) => {
+    const handlePeerOpportunitiesClick = (medicineName: string | undefined) => {
         setSelectedMedicine(medicineName);
         setIsModalOpen(true);
     };
@@ -361,7 +365,7 @@ const MedicineInventory: React.FC = () => {
                                     pharmacyId={medicine.pharmacy_id}
                                     expiryDate={medicine.expiry_date}
                                     units={medicine.units}
-                                    onPeerOpportunitiesClick={
+                                    handlePeerOpportunitiesClick={
                                         handlePeerOpportunitiesClick
                                     }
                                 />

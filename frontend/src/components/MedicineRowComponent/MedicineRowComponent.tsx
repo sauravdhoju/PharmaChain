@@ -36,7 +36,7 @@ interface MedicineProps {
     medicineId: string;
     pharmacyId: string;
     expiryDate: Date;
-    onPeerOpportunitiesClick: (medicineName: string) => void;
+    handlePeerOpportunitiesClick: (medicineName: string) => void;
 }
 interface Pharmacy {
     id: number;
@@ -55,7 +55,7 @@ const MedicineRowComponent = ({
     medicineId,
     expiryDate,
     units,
-    onPeerOpportunitiesClick,
+    handlePeerOpportunitiesClick,
 }: MedicineProps) => {
     const { client } = useBackendAPIContext();
     const [medicine, setMedicine] = useState<Medicine | null>(null);
@@ -176,7 +176,11 @@ const MedicineRowComponent = ({
                         colorScheme='blue'
                         variant='outline'
                         rightIcon={<ExternalLinkIcon />}
-                        // onClick={() => onPeerOpportunitiesClick(name)}
+                        onClick={() =>
+                            handlePeerOpportunitiesClick(
+                                medicine?.name as string
+                            )
+                        }
                     >
                         Peer Opportunities
                     </Button>
