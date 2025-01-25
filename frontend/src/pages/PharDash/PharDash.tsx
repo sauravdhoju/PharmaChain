@@ -26,7 +26,6 @@ import { useNavigate } from 'react-router-dom';
 import PeerOpportunitiesModal from './PeerOpportunities';
 import { Medicine } from '../AdminDash/AdminDash';
 import { useBackendAPIContext } from '../../contexts/BackendAPIContext/BackendAPIContext';
-import MedicineRowComponent from '../../components/MedicineRowComponent/MedicineRowComponent';
 
 interface PharmaMedicineType {
     // name: string;

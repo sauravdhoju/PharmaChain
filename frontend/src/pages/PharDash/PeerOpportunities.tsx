@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { FiShoppingCart } from "react-icons/fi"; 
 import {
   Modal,
   ModalOverlay,
@@ -17,7 +16,6 @@ import {
   Text,
   Spinner,
   Center,
-  IconButton
 } from '@chakra-ui/react';
 
 interface PeerOpportunity {
@@ -95,26 +93,16 @@ const PeerOpportunitiesModal: React.FC<PeerOpportunitiesModalProps> = ({
                   <Th>Bulk Purchase</Th>
                   <Th>Distance</Th>
                   <Th>Price Range</Th>
-                  <Th>Action</Th>
                 </Tr>
               </Thead>
               <Tbody>
                 {opportunities.map((opp, index) => (
-                <Tr key={index}>
-                  <Td fontWeight="medium">{opp.pharmacy}</Td>
-                  <Td>{opp.bulkPurchase} units</Td>
-                  <Td>{opp.distance}</Td>
-                  <Td>{opp.priceRange}</Td>
-                  <Td>
-                    <IconButton
-                      aria-label="Shop"
-                      icon={<FiShoppingCart />} // Shop icon from react-icons
-                      variant="outline"
-                      colorScheme="teal"
-                      size="sm"
-                    />
-                  </Td>
-      </Tr>
+                  <Tr key={index}>
+                    <Td fontWeight="medium">{opp.pharmacy}</Td>
+                    <Td>{opp.bulkPurchase} units</Td>
+                    <Td>{opp.distance}</Td>
+                    <Td>{opp.priceRange}</Td>
+                  </Tr>
                 ))}
               </Tbody>
             </Table>
