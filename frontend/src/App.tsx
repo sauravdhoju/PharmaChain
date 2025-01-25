@@ -1,17 +1,20 @@
+import { Route, Routes } from 'react-router-dom';
+import { Box } from '@chakra-ui/react';
 
-import './App.css'
-import { Routes, Router } from 'react-router-dom'
-import { Route } from 'react-router-dom'
-import App1 from './pages/PharmacyDashboard/PharmacyDashboard'
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import './App.scss';
 
-function App() {
+const App = () => {
 
-  return (
-      <Routes>
-        <Route path="/" element={<App1 />} />
-
-      </Routes>
-  )
-}
+    return (
+        <Box className='app'>
+                <Routes>
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/register' element={<Register />} />
+                </Routes>
+        </Box>
+    );
+};
 
 export default App;
