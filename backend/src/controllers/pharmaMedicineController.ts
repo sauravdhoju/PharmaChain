@@ -1,4 +1,5 @@
 import express from 'express';
+import { get } from 'lodash';
 
 import {
     makePurchase,
@@ -11,7 +12,7 @@ export const getAllStocks = async (
     res: express.Response
 ) => {
     try {
-        const { pharmaId } = req.params;
+        const pharmaId = get(req, 'identity._id') as string;
 
         if (!pharmaId)
             return res
@@ -80,7 +81,8 @@ export const createPurchase = async (
     res: express.Response
 ) => {
     try {
-        const { medicine_id, pharmacy_id, expiry_date, units } = req.body;
+        const { medicine_id, expiry_date, units } = req.body;
+        const pharmacy_id = get(req, 'identity._id') as string;
 
         if (!medicine_id && !pharmacy_id && !expiry_date && !units)
             return res

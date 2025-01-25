@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
     Box,
     Input,
@@ -24,6 +24,8 @@ import {
 import { SearchIcon, CalendarIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 import PeerOpportunitiesModal from './PeerOpportunities';
+import { Medicine } from '../AdminDash/AdminDash';
+import { useBackendAPIContext } from '../../contexts/BackendAPIContext/BackendAPIContext';
 
 interface MedicineData {
     name: string;
@@ -54,6 +56,7 @@ enum SortBy {
 }
 
 const MedicineInventory: React.FC = () => {
+    const { client } = useBackendAPIContext();
     const [viewMode, setViewMode] = useState<ViewMode>(ViewMode.Table); // Toggle between table and card views
     const [searchQuery, setSearchQuery] = useState<string>(''); // Search input state
     const [sortBy, setSortBy] = useState<SortBy | null>(null); // Sorting state
@@ -72,42 +75,55 @@ const MedicineInventory: React.FC = () => {
         setSelectedMedicine("");
       };
     
-    const medicines: MedicineData[] = [
-        {
-            name: 'Aspirin',
-            patientSales: {
-                totalSales: 600,
-            },
-            peerSales: {
-                potential: 100,
-                interested: 3,
-            },
-            expiry: {
-                daysLeft: -25,
-                recommendedPeriod: 120,
-            },
-            quantity: {
-                stock: 150,
-            },
-        },
-        {
-            name: 'Amoxicillin',
-            patientSales: {
-                totalSales: 180,
-            },
-            peerSales: {
-                potential: 30,
-                interested: 2,
-            },
-            expiry: {
-                daysLeft: -117,
-                recommendedPeriod: 60,
-            },
-            quantity: {
-                stock: 50,
-            },
-        },
-    ];
+    // const medicines: MedicineData[] = [
+    //     {
+    //         name: 'Aspirin',
+    //         patientSales: {
+    //             totalSales: 600,
+    //         },
+    //         peerSales: {
+    //             potential: 100,
+    //             interested: 3,
+    //         },
+    //         expiry: {
+    //             daysLeft: -25,
+    //             recommendedPeriod: 120,
+    //         },
+    //         quantity: {
+    //             stock: 150,
+    //         },
+    //     },
+    //     {
+    //         name: 'Amoxicillin',
+    //         patientSales: {
+    //             totalSales: 180,
+    //         },
+    //         peerSales: {
+    //             potential: 30,
+    //             interested: 2,
+    //         },
+    //         expiry: {
+    //             daysLeft: -117,
+    //             recommendedPeriod: 60,
+    //         },
+    //         quantity: {
+    //             stock: 50,
+    //         },
+    //     },
+    // ];
+    const [medicines, setMedicines] = useState<Medicine[]>([]);
+
+    const fetchMedicines = async () => {
+        try {
+            const response = await client.get('/pharma/medicines');
+            const data = await response.data.pharmaMedicines;
+            if (data) {
+                setMedicines(data);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     // const handlePeerOpportunitiesClick = (medicineName: string) => {
     //     navigate(`/peer-opportunities/${medicineName}`);
@@ -129,6 +145,10 @@ const MedicineInventory: React.FC = () => {
                 return 0;
             });
     }, [medicines, searchQuery, sortBy]);
+
+    useEffect(() => {
+        fetchMedicines();
+    }, []);
 
     return (
         <Box p={6} maxW='1120px' margin='0 auto' overflowY='auto'>
