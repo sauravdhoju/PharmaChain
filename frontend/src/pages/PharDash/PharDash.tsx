@@ -29,21 +29,26 @@ import { useBackendAPIContext } from '../../contexts/BackendAPIContext/BackendAP
 import MedicineRowComponent from '../../components/MedicineRowComponent/MedicineRowComponent';
 
 interface MedicineData {
+    // name: string;
+    // patientSales: {
+    //     totalSales: number;
+    // };
+    // peerSales: {
+    //     potential: number;
+    //     interested: number;
+    // };
+    // expiry: {
+    //     daysLeft: number;
+    //     recommendedPeriod: number;
+    // };
+    // quantity: {
+    //     stock: number;
+    // };
     name: string;
-    patientSales: {
-        totalSales: number;
-    };
-    peerSales: {
-        potential: number;
-        interested: number;
-    };
-    expiry: {
-        daysLeft: number;
-        recommendedPeriod: number;
-    };
-    quantity: {
-        stock: number;
-    };
+    quantity: number;
+    daysLeft: number;
+    totalSales: number;
+
 }
 
 enum ViewMode {
@@ -336,7 +341,7 @@ const MedicineInventory: React.FC = () => {
                             ))}
                         </Tbody> */}
 
-                    <Tbody>
+                    {/* <Tbody>
                         {filteredMedicines.map((medicine) => (
                             <MedicineRowComponent
                                 key={medicine.name}
@@ -344,7 +349,20 @@ const MedicineInventory: React.FC = () => {
                                 onPeerOpportunitiesClick={handlePeerOpportunitiesClick}
                             />
                         ))}
-                    </Tbody>
+                    </Tbody> */}
+
+            <Tbody>
+                {filteredMedicines.map((medicine) => (
+                    <MedicineRowComponent
+                        key={medicine.name}
+                        name={medicine.name}
+                        quantity={medicine.quantity.stock}
+                        daysLeft={medicine.expiry_date.daysLeft}
+                        totalSales={medicine.patientSales.totalSales}
+                        onPeerOpportunitiesClick={handlePeerOpportunitiesClick}
+                    />
+                ))}
+            </Tbody>
                     </Table>
                 </Box>
             ) : (
