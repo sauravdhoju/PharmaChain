@@ -14,6 +14,7 @@ const App = () => {
     return (
         <Box className='app'>
             <Routes>
+                <Route path='/' element={<PharDash />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/admin_login' element={<AdminLogin />} />
                 <Route path='/register' element={<Register />} />
