@@ -1,0 +1,21 @@
+.dashboard {
+    .chakra-alert {
+      margin-bottom: 1rem;
+  
+      &.success {
+        background-color: #f0fff4;
+        color: #276749;
+      }
+  
+      &.warning {
+        background-color: #fffaf0;
+        color: #975a16;
+      }
+  
+      &.error {
+        background-color: #fff5f5;
+        color: #c53030;
+      }
+    }
+  }
+  
