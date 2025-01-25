@@ -1,0 +1,32 @@
+.inventory {
+    &__card {
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+    }
+  
+    &__header {
+      border-bottom: 1px solid #E2E8F0;
+    }
+  
+    &__search {
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.6);
+      }
+    }
+  
+    &__alert {
+      animation: pulse 2s infinite;
+    }
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+  }
+  
