@@ -23,6 +23,7 @@ import {
 } from '@chakra-ui/react';
 import { SearchIcon, CalendarIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
+import PeerOpportunitiesModal from './PeerOpportunities';
 
 interface MedicineData {
     name: string;
@@ -56,8 +57,21 @@ const MedicineInventory: React.FC = () => {
     const [viewMode, setViewMode] = useState<ViewMode>(ViewMode.Table); // Toggle between table and card views
     const [searchQuery, setSearchQuery] = useState<string>(''); // Search input state
     const [sortBy, setSortBy] = useState<SortBy | null>(null); // Sorting state
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // Modal state
+    const [selectedMedicine, setSelectedMedicine] = useState<string>(''); // Selected medicine for modal
+
     const navigate = useNavigate();
 
+    const handlePeerOpportunitiesClick = (medicineName: string) => {
+        setSelectedMedicine(medicineName);
+        setIsModalOpen(true);
+      };
+    
+      const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedMedicine("");
+      };
+    
     const medicines: MedicineData[] = [
         {
             name: 'Aspirin',
@@ -95,9 +109,9 @@ const MedicineInventory: React.FC = () => {
         },
     ];
 
-    const handlePeerOpportunitiesClick = (medicineName: string) => {
-        navigate(`/peer-opportunities/${medicineName}`);
-    };
+    // const handlePeerOpportunitiesClick = (medicineName: string) => {
+    //     navigate(`/peer-opportunities/${medicineName}`);
+    // };
 
     const filteredMedicines = useMemo(() => {
         return medicines
@@ -365,6 +379,14 @@ const MedicineInventory: React.FC = () => {
                     ))}
                 </SimpleGrid>
             )}
+
+
+            {/* Peer Opportunities Modal */}
+            <PeerOpportunitiesModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                medicineName={selectedMedicine}
+            />
         </Box>
     );
 };

@@ -7,7 +7,7 @@ import PharmaInvent from './pages/PharmaInvent/PharmaInvent';
 import AdminDash from './pages/AdminDash/AdminDash';
 import AdminLogin from './pages/AdminLogin/AdminLogin';
 import PharDash from './pages/PharDash/PharDash';
-import PeerOpportunities from './pages/PeerOpportunities/PeerOpportunities';
+// import PeerOpportunities from './pages/PharDash/PeerOpportunities';
 import './App.scss';
 
 const App = () => {
@@ -20,10 +20,10 @@ const App = () => {
                 <Route path='/pharma_invent' element={<PharmaInvent />} />
                 <Route path='/admin_dash' element={<AdminDash />} />
                 <Route path='/phar_dash' element={<PharDash />} />
-                <Route
+                {/* <Route
                     path='/peer-opportunities/:medicineId'
                     element={<PeerOpportunities />}
-                />
+                /> */}
             </Routes>
         </Box>
     );
