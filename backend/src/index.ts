@@ -1,14 +1,14 @@
-import express from 'express';
-import http from 'http';
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import compression from 'compression';
-import cors from 'cors';
-import mongoose from 'mongoose';
+import express from "express";
+import http from "http";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import compression from "compression";
+import cors from "cors";
+import mongoose from "mongoose";
 
-import { mongo_uri, port } from './envconfig';
+import { mongo_uri, port } from "./envconfig";
 
-import router from './router/index';
+import router from "./router/index";
 
 const app = express();
 
@@ -22,7 +22,7 @@ const app = express();
 app.use(
     cors({
         credentials: true,
-        origin: 'http://localhost:5173',
+        origin: "http://localhost:5173",
         optionsSuccessStatus: 200,
     })
 );
@@ -30,8 +30,7 @@ app.use(
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
-
-app.use('/', router());
+app.use("/", router());
 
 const server = http.createServer(app);
 
@@ -43,6 +42,6 @@ server.listen(port, () => {
 
 mongoose.Promise = Promise;
 mongoose.connect(mongo_uri);
-mongoose.connection.on('error', (err: Error) => {
+mongoose.connection.on("error", (err: Error) => {
     console.log(err);
 });
