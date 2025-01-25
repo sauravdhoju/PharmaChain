@@ -7,9 +7,11 @@ import {
     useToast,
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
+import React, { useState } from 'react';
 
 const AddMedicineForm: React.FC = () => {
     const toast = useToast();
+    const [medicineName, setMedicineName] = useState('');
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         toast({
@@ -30,6 +32,11 @@ const AddMedicineForm: React.FC = () => {
                             borderColor: 'blue.400',
                             boxShadow: '0 0 0 1px blue.400',
                         }}
+                        onChange={(
+                            e: React.ChangeEvent<HTMLInputElement>
+                        ) => setMedicineName(e.target.value)}
+                        value={medicineName}
+                        
                     />
                 </FormControl>
                 <FormControl mb={4}>

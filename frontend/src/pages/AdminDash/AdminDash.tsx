@@ -130,7 +130,7 @@ const AdminDash: React.FC = () => {
 
                 {activeTab === 'medicines' ? (
                     <>
-                        <AddMedicineForm />
+                        {/* <AddMedicineForm /> */}
                         <Box mt={6}>
                             <MedicineList medicines={medicines} />
                         </Box>
