@@ -22,6 +22,8 @@ const AdminLogin: React.FC = () => {
     const { client } = useBackendAPIContext();
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const toast = useToast();
     const navigate = useNavigate();
@@ -30,7 +32,10 @@ const AdminLogin: React.FC = () => {
         e.preventDefault();
         try {
             setIsLoading(true);
-            const response = await client.post('/admin/login');
+            const response = await client.post('/admin/login', {
+                email,
+                password,
+            });
             const data = response.data.currentAdmin;
             console.log(data);
             if (data) {
@@ -84,6 +89,10 @@ const AdminLogin: React.FC = () => {
                                     size='lg'
                                     borderRadius='lg'
                                     bg='white'
+                                    value={email}
+                                    onChange={(
+                                        e: React.ChangeEvent<HTMLInputElement>
+                                    ) => setEmail(e.target.value)}
                                     required
                                 />
                             </FormControl>
@@ -100,6 +109,10 @@ const AdminLogin: React.FC = () => {
                                         size='lg'
                                         borderRadius='lg'
                                         bg='white'
+                                        value={password}
+                                        onChange={(
+                                            e: React.ChangeEvent<HTMLInputElement>
+                                        ) => setPassword(e.target.value)}
                                         required
                                     />
                                     <InputRightElement h='full'>
