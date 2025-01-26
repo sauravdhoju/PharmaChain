@@ -9,7 +9,11 @@ import {
   VStack,
   Heading,
   useToast,
+  Flex,
+  Icon,
+  useColorModeValue,
 } from '@chakra-ui/react';
+import { FaStore } from 'react-icons/fa';
 import { useBackendAPIContext } from '../../contexts/BackendAPIContext/BackendAPIContext';
 
 type Medicine = {
@@ -33,6 +37,9 @@ const PurchaseForm: React.FC = () => {
     expiry_date: '',
   });
   const toast = useToast();
+
+  const bgColor = useColorModeValue("gray.50", "gray.900");
+  const headerBg = useColorModeValue("white", "gray.800");
 
   // Fetch Medicines from the Backend
   useEffect(() => {
@@ -104,57 +111,78 @@ const PurchaseForm: React.FC = () => {
   };
 
   return (
-    <Box maxW="xl" mx="auto" p={6}>
-      <Heading mb={6}>Purchase Medicine</Heading>
-      <Box as="form" onSubmit={handleSubmit}>
-        <VStack spacing={4} align="stretch">
-          <FormControl isRequired>
-            <FormLabel>Medicine</FormLabel>
-            <Select
-              name="medicine_id"
-              placeholder="Select a medicine"
-              value={formData.medicine_id}
-              onChange={handleChange}
-            >
-              {medicines.map((medicine) => (
-                <option key={medicine._id} value={medicine._id}>
-                  {medicine.name}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-
-          <FormControl isRequired>
-            <FormLabel>Units</FormLabel>
-            <Input
-              type="number"
-              min={1}
-              name="units"
-              value={formData.units}
-              onChange={handleChange}
-              placeholder="Enter quantity"
-            />
-          </FormControl>
-
-          <FormControl isRequired>
-            <FormLabel>Expiry Date</FormLabel>
-            <Input
-              type="date"
-              name="expiry_date"
-              value={formData.expiry_date}
-              onChange={handleChange}
-            />
-          </FormControl>
-
-          <Button
-            type="submit"
-            colorScheme="teal"
-            isLoading={isLoading}
-            loadingText="Submitting"
+    <Box minH="100vh" bg={bgColor} position="relative">
+      {/* Header */}
+      <Box bg={headerBg} shadow="lg" mb={8}>
+        <Flex maxW="6xl" mx="auto" py={6} align="center" gap={4}>
+          <Icon as={FaStore} boxSize={10} color="blue.500" />
+          <Heading
+            as="h1"
+            size="2xl"
+            bgGradient="linear(to-r, blue.400, teal.400)"
+            bgClip="text"
+            fontWeight="extrabold"
           >
-            Submit Purchase
-          </Button>
-        </VStack>
+            HealthCare Pharmacy
+          </Heading>
+        </Flex>
+      </Box>
+
+      {/* Main Content */}
+      <Box maxW="xl" mx="auto" p={6} bg={useColorModeValue("white", "gray.800")} borderRadius="xl" shadow="lg">
+        <Heading as="h2" size="lg" mb={6} textAlign="center">
+          Purchase Medicine
+        </Heading>
+        <Box as="form" onSubmit={handleSubmit}>
+          <VStack spacing={4} align="stretch">
+            <FormControl isRequired>
+              <FormLabel>Medicine</FormLabel>
+              <Select
+                name="medicine_id"
+                placeholder="Select a medicine"
+                value={formData.medicine_id}
+                onChange={handleChange}
+              >
+                {medicines.map((medicine) => (
+                  <option key={medicine._id} value={medicine._id}>
+                    {medicine.name}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl isRequired>
+              <FormLabel>Units</FormLabel>
+              <Input
+                type="number"
+                min={1}
+                name="units"
+                value={formData.units}
+                onChange={handleChange}
+                placeholder="Enter quantity"
+              />
+            </FormControl>
+
+            <FormControl isRequired>
+              <FormLabel>Expiry Date</FormLabel>
+              <Input
+                type="date"
+                name="expiry_date"
+                value={formData.expiry_date}
+                onChange={handleChange}
+              />
+            </FormControl>
+
+            <Button
+              type="submit"
+              colorScheme="teal"
+              isLoading={isLoading}
+              loadingText="Submitting"
+            >
+              Submit Purchase
+            </Button>
+          </VStack>
+        </Box>
       </Box>
     </Box>
   );

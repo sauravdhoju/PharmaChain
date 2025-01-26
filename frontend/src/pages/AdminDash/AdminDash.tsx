@@ -35,7 +35,7 @@ export interface Pharmacy {
     id: number;
     name: string;
     address: string;
-    contact: string;
+    phone_no: number;
 }
 
 const AdminDash: React.FC = () => {
@@ -59,6 +59,7 @@ const AdminDash: React.FC = () => {
     const fetchPharmacies = async () => {
         try {
             const response = await client.get('/pharmacys');
+            console.log(response);
             const data = await response.data.pharmacys;
             if (data) setPharmacies(data);
             else throw new Error('No data found');
